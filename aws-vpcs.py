@@ -46,6 +46,12 @@ def create_internal_vpc():
     cidr=(f'10.1.{i}.0/25')
     subnet = ec2_resource.create_subnet(CidrBlock=cidr, VpcId=vpc.id)
     routetable.associate_with_subnet(SubnetId=subnet.id)
+    
+  # used when tried in k8s, not relevant:  
+  # create another subnet in a differenet AZ for eks
+  #cidr=(f'10.1.6.0/25')
+  #subnet = ec2_resource.create_subnet(CidrBlock=cidr, VpcId=vpc.id, AvailabilityZone='us-east-2a')
+  #routetable.associate_with_subnet(SubnetId=subnet.id)
   
 def establish_conectivity():
   # get VPCs IDs
@@ -93,7 +99,7 @@ def create_k8s_cluster():
   
   # get subnets IDs
   subnet_1 = ec2_client.describe_subnets(Filters=[{'Name': 'cidr-block', 'Values': ['10.1.1.0/25']}])['Subnets'][0]['SubnetId']
-  subnet_2 = ec2_client.describe_subnets(Filters=[{'Name': 'cidr-block', 'Values': ['10.1.4.0/25']}])['Subnets'][0]['SubnetId']
+  subnet_2 = ec2_client.describe_subnets(Filters=[{'Name': 'cidr-block', 'Values': ['10.1.6.0/25']}])['Subnets'][0]['SubnetId']
   
   eks_client.create_cluster(
     name='internal-clus',
