@@ -6,7 +6,7 @@ ec2_client = boto3.client('ec2')
 my_ip=print(sys.argv[1])
 
 # create aws instance for application if not exists
-def create_instance():
+def create_instance(wanted_ip):
   subnet_id = ec2_client.describe_subnets(Filters=[{'Name': 'cidr-block', 'Values': ['10.1.1.0/25']}])['Subnets'][0]['SubnetId']
   vpc_id = ec2_client.describe_vpcs(Filters=[{'Name':'cidr', 'Values':['10.1.0.0/16']}])['Vpcs'][0]['VpcId']
   sec = ec2_client.describe_security_groups(Filters=[{'Name':'vpc-id', 'Values':[vpc_id]}])['SecurityGroups'][0]['GroupId']
@@ -28,11 +28,11 @@ def create_instance():
       ],
       SubnetId=subnet_id,
       ClientToken='application-server',
-      PrivateIpAddress=my_ip,
+      PrivateIpAddress=wanted_ip,
       CreditSpecification={
           'CpuCredits': 'standard'
       },
   )
   
   
-create_instance(
+create_instance(my_ip)
