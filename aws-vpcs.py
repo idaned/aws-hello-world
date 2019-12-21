@@ -40,17 +40,12 @@ def create_internal_vpc():
     VpcId=vpc.id
   )
   
-  # create 3 subnets
+  # create 4 subnets
   routetable = vpc.create_route_table()
-  for i in range(1,4):
+  for i in range(1,5):
     cidr=(f'10.1.{i}.0/25')
     subnet = ec2_resource.create_subnet(CidrBlock=cidr, VpcId=vpc.id)
     routetable.associate_with_subnet(SubnetId=subnet.id)
-    
-  # create another subnet in a differenet AZ for eks
-  cidr=(f'10.1.6.0/25')
-  subnet = ec2_resource.create_subnet(CidrBlock=cidr, VpcId=vpc.id, AvailabilityZone='us-east-2a')
-  routetable.associate_with_subnet(SubnetId=subnet.id)
   
 def establish_conectivity():
   # get VPCs IDs
