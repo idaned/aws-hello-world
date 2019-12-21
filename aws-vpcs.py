@@ -91,7 +91,7 @@ def establish_conectivity():
   securitygroup_ext.authorize_ingress(CidrIp='10.1.0.0/16', IpProtocol='-1')
   securitygroup_int.authorize_ingress(CidrIp='10.0.0.0/16', IpProtocol='-1')
   
-
+# this function was tested when tried k8s, not relevant
 def create_k8s_cluster():
   # get security group
   int_id = ec2_client.describe_vpcs(Filters=[{'Name':'cidr', 'Values':['10.1.0.0/16']}])['Vpcs'][0]['VpcId']
