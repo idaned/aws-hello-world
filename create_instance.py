@@ -3,7 +3,7 @@ import boto3
 
 ec2_resource = boto3.resource('ec2')
 ec2_client = boto3.client('ec2')
-my_ip=print(sys.argv[1])
+my_ip=sys.argv[1]
 
 # create aws instance for application if not exists
 def create_instance(wanted_ip):
