@@ -1,3 +1,4 @@
+#! /bin/bash
 # script for configuring docker in an offline server and running hello-world
 # $1 = server internal ip
 # $2 = ssh keypair
