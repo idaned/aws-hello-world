@@ -21,7 +21,7 @@ if [ ! `ssh -o "StrictHostKeyChecking no" -i $2 ubuntu@$1 "which docker"` ]; the
   	
   ssh -i $2 ubuntu@$1 "sudo dpkg -i /tmp/libltdl7_2.4.6-0.1_amd64.deb && 
     sudo dpkg -i /tmp/docker-ce_18.03.1~ce~3-0~ubuntu_amd64.deb &&
-    sudo docker load -i hello-world.docker"
+    sudo docker load -i /tmp/hello-world.docker"
 fi
 
 
